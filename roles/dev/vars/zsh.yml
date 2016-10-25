@@ -1,0 +1,2 @@
+zsh_dir: "{{ src_dir }}/zsh"
+zsh_branch: zsh-5.2

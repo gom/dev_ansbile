@@ -1,0 +1,33 @@
+- include_vars: vim.yml
+- name: Install dependencies for language support
+  apt: pkg={{ item }} update_cache=yes
+  with_items:
+    - lua5.3
+    - liblua5.3-dev
+    - luajit
+    - libluajit-5.1-dev
+    - libperl-dev
+    - python-dev
+    - python3-dev
+    - ruby-dev
+- name: vim download
+  git: repo=https://github.com/vim/vim.git dest={{ vim_dir }} version=master
+- name: vim configure
+  command: >
+    ./configure
+    --with-features=huge
+    --disable-selinux
+    --disable-darwin
+    --enable-multibyte
+    --enable-perlinterp
+    --enable-pythoninterp
+    --enable-rubyinterp
+    --enable-luainterp=dynamic
+    --with-luajit
+    --enable-fail-if-missing
+    chdir="{{ vim_dir }}"
+- name: vim make
+  make: chdir="{{ vim_dir }}"
+- name: vim make install
+  become: yes
+  make: chdir="{{ vim_dir }}" target=install

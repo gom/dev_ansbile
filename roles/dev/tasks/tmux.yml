@@ -1,0 +1,21 @@
+- include_vars: tmux.yml
+- name: tmux Install dependencies
+  become: yes
+  apt: pkg={{ item }} force=yes update_cache=yes
+  with_items:
+    - libevent-dev
+    - libncurses5-dev
+    - pkg-config
+    - autoconf
+    - autotools-dev
+- name: tmux download
+  git: repo=https://github.com/tmux/tmux.git dest={{ tmux_dir }} version={{ tmux_branch }}
+- name: tmux autoconf
+  command: chdir={{ tmux_dir }} ./autogen.sh
+- name: tmux configure
+  command: chdir={{ tmux_dir }} ./configure
+- name: tmux make
+  make: chdir={{ tmux_dir }}
+- name: tmux make install
+  become: yes
+  make: chdir={{ tmux_dir }} target=install

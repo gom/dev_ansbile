@@ -1,0 +1,11 @@
+- hosts: all
+  user: root
+  name: Create ubuntu user
+  vars:
+    - password: "$6$DVZ3bxwfxe$Yj.zfI2NjOa0vyxQQEdhu/tbWZe0mddfVZ5EOCWlV49fjFtEv0sk0Zs9RQSSsqlXEnDAYSyXqLGEZ8E1X2mZz/" 
+  tasks:
+    - user: name=ubuntu password={{ password }}
+- hosts: all
+  name: Create an environment for development
+  roles:
+    - dev 

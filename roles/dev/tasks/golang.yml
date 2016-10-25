@@ -1,0 +1,22 @@
+- include_vars: golang.yml
+- name: Download go binary
+  get_url: 
+    url: "{{ go_bin.url }}"
+    checksum: "{{ go_bin.checksum }}"
+    dest: "{{ home_dir }}"
+  register: new_archive_go_bin
+- name: Put go binary
+  unarchive: 
+    src="{{ home_dir }}/{{ go_filename }}"
+    dest="{{ home_dir }}"
+    copy=no
+  when: new_archive_go_bin|changed
+- name: Rename go binary
+  shell: mv "{{ home_dir }}/go" "{{ goenv.GOROOT }}"
+  when: new_archive_go_bin|changed
+- name: install some modules
+  environment: "{{ goenv }}"
+  command: "{{ goenv.GOROOT }}/bin/go get {{ item }}"
+  with_items:
+    - github.com/peco/peco
+    - github.com/motemen/ghq

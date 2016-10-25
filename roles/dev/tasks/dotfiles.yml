@@ -1,0 +1,30 @@
+- include_vars: dotfiles.yml
+- name: download dotfiles
+  git: repo=https://github.com/gom/dotfiles.git
+       dest={{ dotfiles_dir }}
+       accept_hostkey=True
+- name: Link files
+  file: src="{{ dotfiles_dir }}/{{ item.src }}" dest="{{ home_dir }}/{{ item.dest }}" state=link
+  with_items:
+    - { src: ".gemrc", dest: ".gemrc" }
+    - { src: "screen/screenrc", dest: ".screenrc" }
+    - { src: "direnv/direnvrc", dest: ".direnvrc" }
+    - { src: "git/config", dest: ".gitconfig" }
+    - { src: "git/ignore", dest: ".gitignore" }
+    - { src: "tmux/tmux.conf", dest: ".tmux.conf" }
+    - { src: "vim", dest: ".vim" }
+- name: Add rc files
+  template:
+    src="{{ item }}.j2"
+    dest="{{ home_dir }}/.{{ item }}"
+  with_items:
+    - vimrc
+    - zshrc
+    - zshenv
+- name: Add source line to rc files
+  lineinfile:
+    dest="{{ home_dir }}/{{ item.dest }}"
+    line="source {{ dotfiles_dir }}/{{ item.src }}"
+    insertafter=EOF state=present regexp="{{ dotfiles_dir }}/{{ item.src }}"
+  with_items:
+    - { src: ".bashrc", dest: ".bashrc" }

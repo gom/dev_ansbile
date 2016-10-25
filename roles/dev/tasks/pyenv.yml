@@ -1,0 +1,4 @@
+- name: pyenv-installer download
+  git: repo=https://github.com/yyuu/pyenv-installer.git dest={{ src_dir }}/pyenv-installer
+- name: install pyenv
+  shell: "{{ src_dir }}/pyenv-installer/bin/pyenv-installer"

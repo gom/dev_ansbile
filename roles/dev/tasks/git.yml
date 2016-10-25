@@ -1,0 +1,24 @@
+- name: git Install dependencies
+  become: yes
+  apt: pkg={{ item }} update_cache=yes
+  with_items:
+    - libcurl4-gnutls-dev
+    - libexpat1-dev
+    - gettext
+    - libz-dev
+    - libssl-dev
+- name: git download
+  git: repo=https://github.com/git/git.git dest={{ src_dir }}/git version=master
+- name: git make all
+  make: 
+    chdir: "{{ src_dir }}/git"
+    target: all
+    params:
+      prefix: "{{ prefix_dir }}"
+- name: git make install
+  become: yes
+  make:
+    chdir: "{{ src_dir }}/git"
+    target: install
+    params:
+      prefix: "{{ prefix_dir }}"

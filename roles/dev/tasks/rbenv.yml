@@ -1,0 +1,16 @@
+- name: rbenv download
+  git: repo=https://github.com/rbenv/rbenv.git dest={{ home_dir }}/.rbenv
+- name: make plugins dir
+  file: path={{ home_dir }}/.rbenv/plugins state=directory
+- name: install plugins
+  git: repo={{ item.repo }} dest={{ home_dir }}/.rbenv/plugins/{{ item.name }}
+  with_items:
+    - { name: "rbenv-vars", repo: "https://github.com/rbenv/rbenv-vars.git" }
+    - { name: "ruby-build",         repo: "https://github.com/rbenv/ruby-build.git" }
+    - { name: "rbenv-default-gems", repo: "https://github.com/rbenv/rbenv-default-gems.git" }
+    - { name: "rbenv-installer",    repo: "https://github.com/rbenv/rbenv-installer.git" }
+    - { name: "rbenv-update",       repo: "https://github.com/rkh/rbenv-update.git" }
+    - { name: "rbenv-whatis",       repo: "https://github.com/rkh/rbenv-whatis.git" }
+    - { name: "rbenv-use",          repo: "https://github.com/rkh/rbenv-use.git" }
+    - { name: "rbenv-binstabs",     repo: "https://github.com/ianheggie/rbenv-binstubs.git" }
+

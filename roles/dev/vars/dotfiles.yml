@@ -1,0 +1,3 @@
+vimrc_path: "{{ dotfiles_dir }}/vim/rc/vimrc"
+zshrc_path: "{{ dotfiles_dir }}/zsh/zshrc"
+zshenv_path: "{{ dotfiles_dir }}/zsh/zshenv"

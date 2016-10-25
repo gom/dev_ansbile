@@ -1,0 +1,2 @@
+vim_dir: "{{ src_dir }}/vim"
+vim_src: "{{ vim_dir }}/src"

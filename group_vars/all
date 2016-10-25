@@ -1,0 +1,4 @@
+home_dir: "/home/ubuntu"
+dotfiles_dir: "{{ home_dir }}/.dotfiles"
+src_dir: "{{ home_dir }}/src"
+prefix_dir: "/usr/local"

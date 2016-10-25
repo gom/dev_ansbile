@@ -1,0 +1,13 @@
+- include_vars: zsh.yml
+- name: zsh Install dependencies
+  become: yes
+  apt: pkg=zsh state=build-dep update_cache=yes
+- name: zsh download
+  git: repo=git://git.code.sf.net/p/zsh/code dest={{ zsh_dir }} version={{ zsh_branch }}
+- name: zsh configure
+  command: chdir={{ zsh_dir }} ./Util/preconfig && ./configure
+- name: zsh make
+  make: chdir={{ zsh_dir }}
+- name: zsh make install
+  become: yes
+  make: chdir={{ zsh_dir }} target=install

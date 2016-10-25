@@ -1,0 +1,9 @@
+- name: Install some packages
+  become: yes
+  apt: pkg={{ item }} force=yes update_cache=yes
+  with_items:
+    - git
+    - build-essential
+    - curl
+- name: make src dir
+  file: path={{ src_dir }} state=directory

@@ -1,0 +1,3 @@
+- name: Install mosh
+  become: yes
+  apt: pkg=mosh update_cache=yes

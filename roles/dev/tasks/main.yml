@@ -1,0 +1,11 @@
+- include: preprocess.yml
+- include: dotfiles.yml
+- include: git.yml
+- include: mosh.yml
+- include: vim.yml
+- include: tmux.yml
+- include: golang.yml
+- include: direnv.yml 
+- include: rbenv.yml
+- include: pyenv.yml
+- include: gover.yml

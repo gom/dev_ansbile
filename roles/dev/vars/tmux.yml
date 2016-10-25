@@ -1,0 +1,2 @@
+tmux_dir: "{{ src_dir }}/tmux"
+tmux_branch: master

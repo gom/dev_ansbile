@@ -1,6 +1,7 @@
 - include: preprocess.yml
 - include: dotfiles.yml
 - include: git.yml
+- include: zsh.yml
 - include: mosh.yml
 - include: vim.yml
 - include: tmux.yml

@@ -1,4 +1,4 @@
-home_dir: "/home/ubuntu"
+home_dir: "{{ ansible_env.HOME }}"
 dotfiles_dir: "{{ home_dir }}/.dotfiles"
 src_dir: "{{ home_dir }}/src"
 prefix_dir: "/usr/local"

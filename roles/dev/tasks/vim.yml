@@ -1,5 +1,7 @@
 - include_vars: vim.yml
 - name: Install dependencies for language support
+  become: yes
+  become_method: sudo
   apt: pkg={{ item }} update_cache=yes
   with_items:
     - lua5.3

@@ -4,8 +4,10 @@
   apt: pkg=zsh state=build-dep update_cache=yes
 - name: zsh download
   git: repo=git://git.code.sf.net/p/zsh/code dest={{ zsh_dir }} version={{ zsh_branch }}
+- name: zsh preconfigure
+  command: chdir={{ zsh_dir }} ./Util/preconfig
 - name: zsh configure
-  command: chdir={{ zsh_dir }} ./Util/preconfig && ./configure
+  command: chdir={{ zsh_dir }} ./configure
 - name: zsh make
   make: chdir={{ zsh_dir }}
 - name: zsh make install
